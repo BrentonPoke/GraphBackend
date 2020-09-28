@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -Dserver.port=$PORT -jar target/backend-2.0.0.RELEASE.jar -cp target/classes:target/dependency/*
