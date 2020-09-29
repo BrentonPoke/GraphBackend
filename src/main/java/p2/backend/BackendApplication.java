@@ -35,7 +35,7 @@ public class BackendApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 
-        Rollbar rollbar = Rollbar.init(withAccessToken("ace12982e3e546f39847979667d97939").environment("production")
+        Rollbar rollbar = Rollbar.init(withAccessToken("ace12982e3e546f39847979667d97939").environment("development")
                 .codeVersion("1.2.1").build());
        try{
            SpringApplication.run(BackendApplication.class, args);

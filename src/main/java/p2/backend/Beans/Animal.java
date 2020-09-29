@@ -33,16 +33,15 @@ public class Animal {
 
     private String animalName;
 
-
     private String scientificName;
 
     private String funFact;
 
     private String summary;
 
-    private int numOfAnimal;
+    private Integer numOfAnimal;
 
-    private int tracking;
+    private Integer tracking;
 
     private String notes;
 

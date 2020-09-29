@@ -24,7 +24,6 @@ import static com.rollbar.notifier.config.ConfigBuilder.withAccessToken;
 public class UserController {
 	private EmployeeService employeeService;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	private Logger log;
 	Rollbar rollbar;
 
 	@PostConstruct
@@ -52,6 +51,18 @@ public class UserController {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		employeeService.saveEmployee(user);
 
+	}
+	
+	@PostMapping("/info")
+	public @ResponseBody ResponseEntity<String> getInfo(@RequestBody Employee id){
+		Employee employee = employeeService.byUsername(id.getUsername());
+		return new ResponseEntity<>(employee.toString(),HttpStatus.OK);
+	}
+	
+	@PutMapping("/assignAnimal")
+	public @ResponseBody ResponseEntity<String> assignAnimal(@RequestBody String empUsername, String animalName){
+		employeeService.assignAnimal(empUsername,animalName);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 
 	@PostMapping("/signin")

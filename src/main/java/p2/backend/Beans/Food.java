@@ -22,6 +22,7 @@ import p2.backend.Beans.Relationships.Diet;
 import p2.backend.RollBarLogger;
 
 @Data
+@NoArgsConstructor
 @NodeEntity
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,

@@ -7,7 +7,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.rollbar.notifier.Rollbar;
 import java.util.HashSet;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Singular;
 import org.json.JSONArray;
@@ -22,10 +25,10 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-@Setter
-@Getter
+@NoArgsConstructor
+@Data
+@Builder
 @NodeEntity
-//Table(name = "Employee")
 @JsonIdentityInfo(
         generator=ObjectIdGenerators.PropertyGenerator.class,
         property="employeeId")
@@ -43,14 +46,17 @@ public class Employee {
     private String password;
 
     private Integer role;
-
+    
    @Relationship(type = "FEEDS")
+   @Singular("animal")
     private Set<Animal> animals = new HashSet<>();
-
-  public Employee() {
-    }
-
-    public Employee(String firstName, String lastName, String username, String password, int role) {
+   
+   public Employee(String username, String password){
+     this.username = username;
+     this.password = password;
+   }
+   
+    public Employee(String firstName, String lastName, String username, String password, Integer role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -58,7 +64,7 @@ public class Employee {
         this.role = role;
     }
 
-    public Employee(String firstName, String lastName, String username, String password, int role, Set<Animal> animals) {
+    public Employee(String firstName, String lastName, String username, String password, Integer role, Set<Animal> animals) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -67,27 +73,7 @@ public class Employee {
         this.animals = animals;
 
     }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Employee employee = (Employee) o;
-        return employeeId == employee.employeeId &&
-                role == employee.role &&
-                Objects.equals(firstName, employee.firstName) &&
-                Objects.equals(lastName, employee.lastName) &&
-                Objects.equals(username, employee.username) &&
-                Objects.equals(password, employee.password) &&
-                Objects.equals(animals, employee.animals);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(employeeId, firstName, lastName, username, password, role);
-    }
+    
 
     @Override
     public String toString() {
@@ -95,6 +81,7 @@ public class Employee {
         try {
             json.put("firstName",firstName)
                     .put("lastName",lastName)
+                .put("employeeId",employeeId)
                     .put("username",username)
                     .put("role",role);
         } catch (JSONException e) {

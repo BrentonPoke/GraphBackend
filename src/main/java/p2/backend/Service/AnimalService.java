@@ -12,14 +12,14 @@ import java.util.Set;
 @Service
 public class AnimalService {
 
-    private AnimalRepository animalRepository;
+    private static AnimalRepository animalRepository;
 
     @Autowired
     public AnimalService(AnimalRepository animalRepository){
-        this.animalRepository = animalRepository;
+        AnimalService.animalRepository = animalRepository;
     }
 
-    public Animal byAnimal(String name){
+    public static Animal byAnimal(String name){
         return animalRepository.findAnimalByAnimalName(name);
     }
 
@@ -27,11 +27,11 @@ public class AnimalService {
         return animalRepository.findAll();
     }
 
-    public void saveAnimal (Animal save){
+    public static void saveAnimal (Animal save){
         animalRepository.save(save);
     }
 
-    public void deleteAnimal(Animal delete){
+    public static void deleteAnimal(Animal delete){
         animalRepository.delete(delete);
     }
 
