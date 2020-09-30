@@ -30,6 +30,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable().authorizeRequests()
 				.antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
 				.antMatchers(HttpMethod.POST,SIGN_IN_URL).permitAll()
+				.antMatchers(HttpMethod.PUT,ASSIGN_ANIMAL_URL).permitAll()
 				.antMatchers(HttpMethod.GET,EVENTS).permitAll()
 				.antMatchers(HttpMethod.GET,ANIMALS).permitAll()
 				.antMatchers(HttpMethod.GET,LOCATION).permitAll()

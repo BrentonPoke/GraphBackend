@@ -3,31 +3,21 @@ package p2.backend.Beans;
 import static com.rollbar.notifier.config.ConfigBuilder.withAccessToken;
 
 import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.rollbar.notifier.Rollbar;
 import java.util.HashSet;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.Singular;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-@NoArgsConstructor
 @Data
-@Builder
 @NodeEntity
 @JsonIdentityInfo(
         generator=ObjectIdGenerators.PropertyGenerator.class,
@@ -47,9 +37,16 @@ public class Employee {
 
     private Integer role;
     
+
    @Relationship(type = "FEEDS")
-   @Singular("animal")
-    private Set<Animal> animals = new HashSet<>();
+    private Set<Animal> animals;
+   public void addAnimal(Animal animal){
+     this.animals.add(animal);
+   }
+   
+   public Employee(){
+     this.animals = new HashSet<>();
+   }
    
    public Employee(String username, String password){
      this.username = username;

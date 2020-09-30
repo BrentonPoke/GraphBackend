@@ -12,4 +12,6 @@ public interface EmployeeRepository extends Neo4jRepository<Employee, Long> {
     Employee findEmployeeByUsername(@Param("username") String username);
     @Query("MATCH (n:Employee) where n.id = {id} return n")
     Employee findEmployeeByEmployeeId(@Param("id") Long id);
+    @Query("MATCH (animal:Animal {animalName:{animal}}), (emp:Employee {username:{employee}}) CREATE (emp)-[:FEEDS]->(animal)")
+    void assignAnimalToEmployee(@Param("animal") String animal, @Param("employee") String employee);
 }

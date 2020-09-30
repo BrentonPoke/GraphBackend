@@ -6,6 +6,7 @@ import com.rollbar.notifier.Rollbar;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import p2.backend.Beans.Employee;
+import p2.backend.Beans.QueryObjects.AssignAnimalQuery;
 import p2.backend.Service.EmployeeService;
 import p2.backend.security.SecurityConstants;
 import org.apache.logging.log4j.Logger;
@@ -60,9 +61,9 @@ public class UserController {
 	}
 	
 	@PutMapping("/assignAnimal")
-	public @ResponseBody ResponseEntity<String> assignAnimal(@RequestBody String empUsername, String animalName){
-		employeeService.assignAnimal(empUsername,animalName);
-		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	public @ResponseBody ResponseEntity<String> assignAnimal(@RequestBody AssignAnimalQuery query){
+		employeeService.assignAnimal(query);
+		return new ResponseEntity<>(query.toString(),HttpStatus.ACCEPTED);
 	}
 
 	@PostMapping("/signin")

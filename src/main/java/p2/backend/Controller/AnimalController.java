@@ -37,7 +37,7 @@ public class AnimalController {
 
     @GetMapping
     public Animal byAnimalName(@RequestParam(value="name") String name){
-        Animal animal = animalService.byAnimal(name);
+        Animal animal = AnimalService.byAnimal(name);
         return animal;
     }
 
