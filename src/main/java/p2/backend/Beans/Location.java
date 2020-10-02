@@ -14,7 +14,8 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 
-@Data
+@Getter
+@Setter
 @NodeEntity
 public class Location {
 

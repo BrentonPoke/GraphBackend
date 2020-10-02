@@ -21,7 +21,8 @@ import org.neo4j.ogm.annotation.Relationship;
 import p2.backend.Beans.Relationships.Diet;
 import p2.backend.RollBarLogger;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @NodeEntity
 @JsonIdentityInfo(

@@ -4,24 +4,21 @@ package p2.backend.Beans;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.util.HashSet;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Singular;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Objects;
 import java.util.Set;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import p2.backend.Beans.Relationships.Caretaker;
-import p2.backend.Beans.Relationships.Diet;
 import p2.backend.RollBarLogger;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @NodeEntity
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,

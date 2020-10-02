@@ -8,6 +8,8 @@ import java.util.HashSet;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.Singular;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +19,8 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-@Data
+@Getter
+@Setter
 @NodeEntity
 @JsonIdentityInfo(
         generator=ObjectIdGenerators.PropertyGenerator.class,
