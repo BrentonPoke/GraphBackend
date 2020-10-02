@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    depends_on:
+      - "neo4j"
+    image: "brentonpoke/graph:latest"
+    ports:
+      - "8080:8080"
+  neo4j:
+    image: "neo4j:3.5.17"
+    environment:
+      NEO4J_AUTH: "neo4j/test"
+    ports:
+      - "7474:7474"
+      - "7687:7687"
