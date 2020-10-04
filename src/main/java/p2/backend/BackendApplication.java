@@ -1,5 +1,7 @@
 package p2.backend;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -55,6 +57,11 @@ public class BackendApplication implements CommandLineRunner {
     @Transactional
     @Override
     public void run(String... args) throws Exception {
+  
+      while(!employeeRepository.getStatus().equals(1)){
+        Logger logger = LoggerFactory.getLogger("HealthCheck");
+        logger.info("Can't connect yet");
+      }
 
 //        //Create all the Animals
         Animal americanAlligator = new Animal("American Alligator", "Alligator Mississippiensis","The eyes and snout are positioned on the top of the head, enabling the American alligator to breathe and watch for prey, while the rest of the body is submerged.","Domestic American alligators range from long and slender to short and robust, possibly due to variations in factors such as growth rate, diet, and climate. American alligators have broad snouts, especially in captive individuals.",9,0,null);

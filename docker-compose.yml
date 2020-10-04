@@ -4,13 +4,17 @@ services:
     build: .
     depends_on:
       - "neo4j"
-    image: "brentonpoke/graph:latest"
+    image: "neo4jbackend:latest"
+    expose:
+      - "8080"
     ports:
       - "8080:8080"
   neo4j:
     image: "neo4j:3.5.17"
     environment:
       NEO4J_AUTH: "neo4j/test"
+    expose:
+      - "7687"
     ports:
       - "7474:7474"
       - "7687:7687"
