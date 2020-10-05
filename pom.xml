@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>p2</groupId>
+	<groupId>graph</groupId>
 	<artifactId>backend</artifactId>
 	<packaging>jar</packaging>
 
@@ -126,7 +126,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>p2.backend.BackendApplication</mainClass>
+					<mainClass>graph.backend.BackendApplication</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -136,7 +136,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<packageName>p2.backend</packageName>
+							<packageName>graph.backend</packageName>
 						</manifest>
 						<manifestEntries>
 							<Created-By>Brenton Poke</Created-By>
@@ -144,28 +144,6 @@
 						</manifestEntries>
 					</archive>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
-				<version>2.0.3</version>
-				<executions>
-					<execution>
-						<id>package</id>
-						<phase>package</phase>
-						<goals><goal>deploy</goal></goals>
-						<configuration>
-							<includeTarget>false</includeTarget>
-							<includes>
-								<include>target/backend-2.0.0.RELEASE.jar</include>
-							</includes>
-							<processTypes>
-								<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/backend-2.0.0.RELEASE.jar -cp target/classes:target/dependency/*</web>
-							</processTypes>
-						</configuration>
-					</execution>
-				</executions>
-
 			</plugin>
 		</plugins>
 	</build>
