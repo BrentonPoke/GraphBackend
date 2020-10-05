@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.rollbar.notifier.Rollbar;
+import graph.backend.RollBarLogger;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,12 +24,9 @@ import static com.rollbar.notifier.config.ConfigBuilder.withAccessToken;
 import static graph.backend.security.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-    private Rollbar logger;
 
 	@PostConstruct
 	public void initialize() {
-		logger = Rollbar.init(withAccessToken("ace12982e3e546f39847979667d97939").environment("development")
-				.codeVersion("1.2.1").build());
 	}
 
 	public JWTAuthorizationFilter(AuthenticationManager authManager) {
@@ -61,7 +59,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			try {
 				algorithm = Algorithm.HMAC512(SECRET);
 			} catch (UnsupportedEncodingException e) {
-			    logger.error(e.getMessage());
+			    RollBarLogger.error(e);
 			}
 				JWTVerifier verifier = JWT.require(algorithm)
 						.withIssuer(jwt.getIssuer())

@@ -20,17 +20,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
-import p2.backend.Beans.*;
-import p2.backend.Repository.*;
 
 import java.util.HashSet;
 import java.util.Set;
-import static com.rollbar.notifier.config.ConfigBuilder.withAccessToken;
-import com.rollbar.notifier.Rollbar;
 
 
 @SpringBootApplication
-@EnableNeo4jRepositories(basePackages = "p2.backend.Repository")
+@EnableNeo4jRepositories(basePackages = "graph.backend.Repository")
 public class BackendApplication implements CommandLineRunner {
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -39,13 +35,11 @@ public class BackendApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 
-        Rollbar rollbar = Rollbar.init(withAccessToken("ace12982e3e546f39847979667d97939").environment("development")
-                .codeVersion("1.2.1").build());
        try{
            SpringApplication.run(BackendApplication.class, args);
        }
         catch (Exception e){
-            rollbar.error(e.getMessage());
+          RollBarLogger.error(e);
         }
 	}
 
