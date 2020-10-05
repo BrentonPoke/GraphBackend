@@ -15,8 +15,8 @@ public class RollBarLogger {
   public static void error(Exception e){
     rollbar.error(e);
   }
-  public static void info(Exception e){
-    rollbar.info(e.getMessage());
+  public static void info(String e){
+    rollbar.info(e);
   }
   
 }

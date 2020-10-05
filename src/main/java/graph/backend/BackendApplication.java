@@ -63,8 +63,8 @@ public class BackendApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
   
       while(!employeeRepository.getStatus().equals(1)){
-        Logger logger = LoggerFactory.getLogger("HealthCheck");
-        logger.info("Can't connect yet");
+        RollBarLogger.info("HealthCheck");
+        RollBarLogger.info("Can't connect yet");
       }
 
 //        //Create all the Animals
