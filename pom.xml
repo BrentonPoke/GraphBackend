@@ -70,11 +70,11 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		<dependency>
-			<groupId>com.rollbar</groupId>
-			<artifactId>rollbar-web</artifactId>
-			<version>1.2.1</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.rollbar</groupId>-->
+<!--			<artifactId>rollbar-web</artifactId>-->
+<!--			<version>1.2.1</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
@@ -90,6 +90,11 @@
 			<groupId>org.neo4j</groupId>
 			<artifactId>neo4j</artifactId>
 			<version>3.5.17</version> <!--Need server to be 3.5.17 -->
+		</dependency>
+		<dependency>
+			<groupId>com.rollbar</groupId>
+			<artifactId>rollbar-spring-webmvc</artifactId>
+			<version>1.7.2</version>
 		</dependency>
 <!--		<dependency>-->
 <!--			<groupId>org.neo4j</groupId>-->

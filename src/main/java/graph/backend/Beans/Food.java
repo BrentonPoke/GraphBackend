@@ -1,6 +1,7 @@
 package graph.backend.Beans;
 
 import com.fasterxml.jackson.annotation.*;
+import com.rollbar.notifier.Rollbar;
 import graph.backend.RollBarLogger;
 import java.util.HashSet;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter
 @Setter
@@ -62,14 +64,13 @@ public class Food {
                     animalFood.put("animalId",animal.getAnimalId());
                     animalFood.put("animalName",animal.getAnimalName());
                 } catch (JSONException e) {
-                    RollBarLogger
-                        .errorMessage(e,"Failed to create animal JSON array in "+ this.getClass().getSimpleName());
+                  new RollBarLogger().rollbar().error(e,"Failed to create animal JSON array in "+ this.getClass().getSimpleName());
                 }
                 animalArray.put(animalFood);
             });
             json.put("Animal",animalArray);
         } catch (JSONException e) {
-            RollBarLogger.error(e);
+          new RollBarLogger().rollbar().error(e);
         }
         return json.toString();
     }

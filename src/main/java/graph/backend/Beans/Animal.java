@@ -3,6 +3,7 @@ package graph.backend.Beans;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.rollbar.notifier.Rollbar;
 import graph.backend.RollBarLogger;
 import java.util.HashSet;
 import lombok.EqualsAndHashCode;
@@ -15,6 +16,7 @@ import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter
 @Setter
@@ -88,7 +90,7 @@ public class Animal {
                     .put("tracking",tracking)
                     .put("notes",notes);
         } catch (JSONException e) {
-            RollBarLogger.error(e);
+            new RollBarLogger().rollbar().error(e);
         }
         return json.toString();
     }

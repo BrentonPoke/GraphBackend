@@ -16,17 +16,13 @@ import static com.rollbar.notifier.config.ConfigBuilder.withAccessToken;
 @RequestMapping("/Animal")
 public class AnimalController {
     Rollbar rollbar;
-
-    @PostConstruct
-    public void initialize() {
-        rollbar = Rollbar.init(withAccessToken("ace12982e3e546f39847979667d97939").environment("production")
-                .codeVersion("1.2.1").build());
-    }
+    
 
     private AnimalService animalService;
 
     @Autowired
-    public AnimalController(AnimalService animalService){
+    public AnimalController(AnimalService animalService, Rollbar rollbar){
+        this.rollbar = rollbar;
         this.animalService = animalService;
     }
 

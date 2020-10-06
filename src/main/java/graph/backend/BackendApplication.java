@@ -1,5 +1,6 @@
 package graph.backend;
 
+import com.rollbar.notifier.Rollbar;
 import graph.backend.Beans.Animal;
 import graph.backend.Beans.Employee;
 import graph.backend.Beans.Events;
@@ -10,8 +11,6 @@ import graph.backend.Repository.EmployeeRepository;
 import graph.backend.Repository.EventsRepository;
 import graph.backend.Repository.FoodRepository;
 import graph.backend.Repository.LocationRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,10 +27,18 @@ import java.util.Set;
 @SpringBootApplication
 @EnableNeo4jRepositories(basePackages = "graph.backend.Repository")
 public class BackendApplication implements CommandLineRunner {
-	@Bean
+  
+  @Autowired
+  public BackendApplication(Rollbar rollbar) {
+    BackendApplication.rollbar = rollbar;
+  }
+  
+  @Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder(15);
 	}
+  
+  private static Rollbar rollbar;
 
 	public static void main(String[] args) {
 
@@ -39,7 +46,7 @@ public class BackendApplication implements CommandLineRunner {
            SpringApplication.run(BackendApplication.class, args);
        }
         catch (Exception e){
-          RollBarLogger.error(e);
+          rollbar.error(e);
         }
 	}
 
@@ -63,8 +70,8 @@ public class BackendApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
   
       while(!employeeRepository.getStatus().equals(1)){
-        RollBarLogger.info("HealthCheck");
-        RollBarLogger.info("Can't connect yet");
+        rollbar.info("HealthCheck");
+        rollbar.info("Can't connect yet");
       }
 
 //        //Create all the Animals
