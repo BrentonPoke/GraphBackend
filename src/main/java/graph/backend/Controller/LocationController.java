@@ -2,24 +2,24 @@ package graph.backend.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import graph.backend.Beans.Location;
-import graph.backend.Service.LocationService;
+import graph.backend.Beans.Coordinates;
+import graph.backend.Service.CoordinateService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/Location")
 public class LocationController {
 
-    private LocationService locationService;
+    private CoordinateService coordinateService;
 
     @Autowired
-    public LocationController(LocationService locationService){
-        this.locationService =locationService;
+    public LocationController(CoordinateService locationService){
+        this.coordinateService =locationService;
     }
 
     @RequestMapping
-    public Iterable<Location> locationList(){
-        return locationService.listofLocations();
+    public Iterable<Coordinates> locationList(){
+        return coordinateService.listofCoordinates();
     }
 
 }

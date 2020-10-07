@@ -14,11 +14,11 @@ import graph.backend.BackendApplication;
 @RunWith(SpringRunner.class)
 //@WebMvcTest(value=AnimalController.class)
 @SpringBootTest(classes = BackendApplication.class)
-public class LocationTest {
+public class CoordinatesTest {
 
     @Test
     public void getterAndSetterCorrectness() throws Exception {
-        new BeanTester().testBean(Location.class);
+        new BeanTester().testBean(Coordinates.class);
     }
 
     @Test
@@ -36,13 +36,13 @@ public class LocationTest {
 
 }
 
-class LocationFactory implements EquivalentFactory<Location> {
+class LocationFactory implements EquivalentFactory<Coordinates> {
 
     @Override
-    public Location create() {
+    public Coordinates create() {
         Animal mockAnimal = new Animal();
-        Location mockLocation = new Location(1.234, 5.678);
+        Coordinates mockCoordinates = new Coordinates(1.234, 5.678,new Location("African Forest",new Coordinates(42.475467, -83.160536)));
 
-        return mockLocation;
+        return mockCoordinates;
     }
 }

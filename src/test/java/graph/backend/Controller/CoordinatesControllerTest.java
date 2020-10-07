@@ -1,6 +1,7 @@
 package graph.backend.Controller;
 
-import graph.backend.Service.LocationService;
+import graph.backend.Beans.Location;
+import graph.backend.Service.CoordinateService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import graph.backend.BackendApplication;
 import graph.backend.Beans.Animal;
-import graph.backend.Beans.Location;
+import graph.backend.Beans.Coordinates;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = BackendApplication.class)
 @SpringBootTest
-public class LocationControllerTest {
+public class CoordinatesControllerTest {
 
     private MockMvc mockMvc;
 
@@ -35,10 +36,10 @@ public class LocationControllerTest {
     private WebApplicationContext wac;
 
     @MockBean
-    private LocationService locationService;
+    private CoordinateService locationService;
     Animal mockAnimal = null;//new Animal("Spencer", "Mathematician turnedprogrammer","likes math", "loves math", 1, 1, "notes");
-    Location loc1 = new Location(1.234, 1.234);
-    Location loc2 = new Location(5.678, 5.678);
+    Coordinates loc1 = new Coordinates(1.234, 1.234,new Location("Asian Forest",new Coordinates(42.475467, -83.160536)));
+    Coordinates loc2 = new Coordinates(5.678, 5.678,new Location("American Grassland",new Coordinates(42.475467, -83.160536)));
 
 
 
@@ -50,10 +51,10 @@ public class LocationControllerTest {
 
     @Test
     public void locationList() throws Exception {
-        List<Location> result = new ArrayList<>();
+        List<Coordinates> result = new ArrayList<>();
         result.add(loc1);
         result.add(loc2);
-        Mockito.when(locationService.listofLocations()).thenReturn(result);
+        Mockito.when(locationService.listofCoordinates()).thenReturn(result);
 
         MvcResult response = mockMvc.perform(MockMvcRequestBuilders.get("/Location/").accept(MediaType.APPLICATION_JSON)).andReturn();
         System.out.println(response.getResponse());
