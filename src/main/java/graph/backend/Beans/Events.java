@@ -3,6 +3,9 @@ package graph.backend.Beans;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import lombok.Data;
 import lombok.Getter;
@@ -25,19 +28,22 @@ public class Events {
 
     private String where;
 
-    private String when;
-
-    public Events(String what, String where, String when) {
+    private LocalDateTime start, end;
+    
+    public Events(String what, String where, LocalDateTime start, LocalDateTime end) {
         this.what = what;
         this.where = where;
-        this.when = when;
+        this.start = start;
+        this.end = end;
     }
-
+    
     @Override
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode json = mapper.createObjectNode();
-        json.put("what",what).put("where",where).put("when",when);
+        json.put("what",what).put("where",where)
+            .put("start",start.format(DateTimeFormatter.ISO_DATE_TIME))
+        .put("end",end.format(DateTimeFormatter.ISO_DATE_TIME));
         return json.toString();
     }
 }

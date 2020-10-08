@@ -2,6 +2,7 @@ package graph.backend.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,18 +19,21 @@ import static com.rollbar.notifier.config.ConfigBuilder.withAccessToken;
 public class GlobalExceptionHandlerController {
 
     public static final String DEFAULT_ERROR_VIEW = "error";
-
+    final Rollbar rollbar;
+    
+    @Autowired
+    public GlobalExceptionHandlerController(Rollbar rollbar) {
+        this.rollbar = rollbar;
+    }
+    
     @ExceptionHandler(value = Exception.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-
-        final Rollbar rollbar = new Rollbar(withAccessToken("ace12982e3e546f39847979667d97939")
-                .environment("production").handleUncaughtErrors(true).build());
-        rollbar.error(e);
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", e);
         mav.addObject("url", req.getRequestURL());
         mav.addObject("timestamp",LocalTime.now());
         mav.setViewName(DEFAULT_ERROR_VIEW);
+        rollbar.error(e,mav.getModelMap());
         return mav;
     }
 }

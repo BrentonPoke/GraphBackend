@@ -18,6 +18,7 @@ import graph.backend.Repository.LocationRepository;
 import graph.backend.Service.CoordinateService;
 import graph.backend.Service.EmployeeService;
 import graph.backend.Service.FoodService;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -114,14 +115,14 @@ public class BackendApplication implements CommandLineRunner {
         Employee florina= new Employee("Florina","Singson","Fsingson",password,0);
 
         // Create all the Events
-        Events one = new Events("Breakfast with Orangutan", "Kampung Sumatra","8:00 AM - 9:30 AM");
-        Events two = new Events("Elephants Bathing", "Elephant Pool", "8:45 AM - 9:00 AM");
-        Events three = new Events("Short Animal Presenation", "Gaya Restaurant", "9:00 AM - 9:15 AM");
-        Events four = new Events("Animal Presentation", "Kampung Sumatra Stage", "10:00 AM - 10:20 AM");
-        Events five = new Events("The Exotica Wildlife Education", "Green Stage", "11:15 AM - 11:45 AM");
-        Events six = new Events("Tiger Keeper Talk", "Tiger Exhibit", "11:45 AM - 12:00 PM");
-        Events seven = new Events("Lemur Keeper Talk", "Aviary", "12:15 PM - 12:30 PM");
-        Events eight = new Events("Animal Encounter", "Elephant View Restaurant", "1:00 PM - 2:00 PM");
+        Events one = new Events("Breakfast with Orangutan", "Kampung Sumatra", LocalDateTime.parse("2020-12-03T10:15:00"),LocalDateTime.parse("2020-12-03T11:00:00"));
+        Events two = new Events("Elephants Bathing", "Elephant Pool",LocalDateTime.parse("2020-12-03T08:45:00"), LocalDateTime.parse("2020-12-03T09:00:00"));
+        Events three = new Events("Short Animal Presenation", "Gaya Restaurant",LocalDateTime.parse("2020-12-03T09:00:00"), LocalDateTime.parse("2020-12-03T09:15:00"));
+        Events four = new Events("Animal Presentation", "Kampung Sumatra Stage",LocalDateTime.parse("2020-12-02T10:00:00"), LocalDateTime.parse("2020-12-02T10:20:00"));
+        Events five = new Events("The Exotica Wildlife Education", "Green Stage",LocalDateTime.parse("2020-12-05T11:15:00"), LocalDateTime.parse("2020-12-05T11:45:00"));
+        Events six = new Events("Tiger Keeper Talk", "Tiger Exhibit",LocalDateTime.parse("2020-12-03T11:45:00"), LocalDateTime.parse("2020-12-03T12:00:00"));
+        Events seven = new Events("Lemur Keeper Talk", "Aviary",LocalDateTime.parse("2020-12-03T12:15:00"), LocalDateTime.parse("2020-12-03T12:30:00"));
+        Events eight = new Events("Animal Encounter", "Elephant View Restaurant",LocalDateTime.parse("2020-12-03T13:00:00"), LocalDateTime.parse("2020-12-03T14:00:00"));
 
         // Create all the Food
         Food bamboo = new Food("Bamboo",400,"11/27/2018","For the Pandas only");
