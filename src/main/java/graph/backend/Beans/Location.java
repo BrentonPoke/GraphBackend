@@ -26,4 +26,7 @@ public class Location {
     this.name = name;
     this.coordinates = coordinates;
   }
+  public Location(String name){
+    this.name = name;
+  }
 }

@@ -138,11 +138,11 @@ public class BackendApplication implements CommandLineRunner {
         Food rawMeat = new Food("Raw Meat",400,"04/04/2018","Need to order more next time");
         Food carrots = new Food("carrots",200,"01/14/2019",null);
   
-        Location amGrass = new Location("American Grasslands",new Coordinates(42.475447, -83.160576));
-        Location asForest = new Location("Asian Forest",new Coordinates(42.478989, -83.157462));
-        Location reptiles = new Location("Holden Museum of Living Reptiles",new Coordinates(42.476672, -83.154398));
-        Location arctic= new Location("Arctic Ring of Life",new Coordinates(42.477228, -83.160883));
-        Location afForest = new Location("African Grasslands",new Coordinates(42.479150, -83.159716));
+        Location amGrass = new Location("American Grasslands");
+        Location asForest = new Location("Asian Forest");
+        Location reptiles = new Location("Holden Museum of Living Reptiles");
+        Location arctic= new Location("Arctic Ring of Life");
+        Location afForest = new Location("African Grasslands");
 
 
         // Create all the Locations
