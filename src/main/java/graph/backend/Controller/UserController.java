@@ -24,19 +24,16 @@ import static com.rollbar.notifier.config.ConfigBuilder.withAccessToken;
 public class UserController {
 	private EmployeeService employeeService;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	final
 	Rollbar rollbar;
 
-	@PostConstruct
-	public void initialize() {
-		rollbar = Rollbar.init(withAccessToken("ace12982e3e546f39847979667d97939").environment("production")
-				.codeVersion("1.2.1").build());
-	}
-
 	@Autowired
-	public UserController(EmployeeService employeeService ,
-						  BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public UserController(EmployeeService employeeService,
+			BCryptPasswordEncoder bCryptPasswordEncoder, Rollbar rollbar) {
 		this.employeeService = employeeService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.rollbar = rollbar;
 	}
 
 	@PostMapping("/user")

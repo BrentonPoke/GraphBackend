@@ -33,7 +33,7 @@ public class Food {
 
     private String foodName;
 
-    private int amount;
+    private Integer amount;
 
     private String nextDelivery;
 

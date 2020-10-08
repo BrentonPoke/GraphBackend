@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 //import javax.persistence.*;
+import lombok.Builder.Default;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
@@ -14,6 +16,7 @@ import org.neo4j.ogm.annotation.Relationship;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @NodeEntity
 public class Coordinates {
 
@@ -36,7 +39,7 @@ public class Coordinates {
         this.longitude = longitude;
         this.location = location;
     }
-
+    
   public Coordinates(Double latitude, Double longitude) {
     this.latitude = latitude;
     this.longitude = longitude;

@@ -129,14 +129,14 @@ public class BackendApplication implements CommandLineRunner {
         Food eggs = new Food("Eggs",300,"06/11/2018",null);
         Food fruits = new Food("Fruits",1000,"01/14/2018",null);
         Food hay = new Food("Hay",450,"01/14/2018",null);
-        Food insects = new Food("Insects",350,"02/10/2019","Order more");
+        Food insects = new Food("Insects",350,"11/10/2020","Order more");
         Food rodents = new Food("Rodents",400,"04/02/2018",null);
         Food seeds = new Food("Seeds",300,"05/07/2018","Need to cancel order");
         Food treeBark = new Food("Tree Bark",250,"12/05/2018","Cancelling with dealer, pending");
         Food vegetables = new Food("Vegetables",890,"01/28/2019","Cancelling with dealer, pending");
         Food rawFish = new Food("Raw Fish",300,"04/15/2018",null);
         Food rawMeat = new Food("Raw Meat",400,"04/04/2018","Need to order more next time");
-        Food carrots = new Food("carrots",200,"01/14/2019",null);
+        Food carrots = new Food("carrots",200,"01/14/2019","Horses don't need much more right now");
   
         Location amGrass = new Location("American Grasslands");
         Location asForest = new Location("Asian Forest");
@@ -176,6 +176,7 @@ public class BackendApplication implements CommandLineRunner {
         orangutan.setSite(lOrangutan);
         redPanda.setSite(lRedPanda);
         tiger.setSite(lTiger);
+        lion.setSite(lLion);
         westernLowlandGorilla.setSite(lWesternLowlandGorilla);
 
         
