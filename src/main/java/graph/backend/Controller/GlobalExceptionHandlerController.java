@@ -1,6 +1,7 @@
 package graph.backend.Controller;
 
-import javax.servlet.http.HttpServletRequest;
+
+import graph.backend.RollBarLogger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -8,28 +9,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import com.rollbar.notifier.Rollbar;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import static com.rollbar.notifier.config.ConfigBuilder.withAccessToken;
 
 @ControllerAdvice
 public class GlobalExceptionHandlerController extends ResponseEntityExceptionHandler {
-
-    final Rollbar rollbar;
+   RollBarLogger rollbar;
     
     @Autowired
-    public GlobalExceptionHandlerController(Rollbar rollbar) {
+    public GlobalExceptionHandlerController(RollBarLogger rollbar) {
         this.rollbar = rollbar;
     }
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value
+        = { IllegalArgumentException.class, IllegalStateException.class})
     protected ResponseEntity<Object> handleConflict(
         RuntimeException ex, WebRequest request) {
+      rollbar.rollbar().error(ex);
         String bodyOfResponse = ex.getCause().getMessage();
         return handleExceptionInternal(ex, bodyOfResponse,
             new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
+    
 }

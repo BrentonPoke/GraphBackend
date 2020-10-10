@@ -37,7 +37,7 @@ import java.util.Set;
 public class BackendApplication implements CommandLineRunner {
   
   @Autowired
-  public BackendApplication(Rollbar rollbar) {
+  public BackendApplication(RollBarLogger rollbar) {
     BackendApplication.rollbar = rollbar;
   }
   
@@ -46,7 +46,7 @@ public class BackendApplication implements CommandLineRunner {
 		return new BCryptPasswordEncoder(15);
 	}
   
-  private static Rollbar rollbar;
+  private static RollBarLogger rollbar;
 
 	public static void main(String[] args) {
 
@@ -54,7 +54,7 @@ public class BackendApplication implements CommandLineRunner {
            SpringApplication.run(BackendApplication.class, args);
        }
         catch (Exception e){
-          rollbar.error(e);
+          rollbar.rollbar().error(e);
         }
 	}
 
@@ -310,7 +310,6 @@ public class BackendApplication implements CommandLineRunner {
   
       queryBuilder.animalName(californiaSeaLion.getAnimalName()).username(florina.getUsername());
       animalService.assignAnimal(queryBuilder.build());
-  
       
       queryBuilder.clearAnimals().username(terrell.getUsername()).animal(manedWolf).animal(americanBison);
       animalService.assignManyAnimals(queryBuilder.build());

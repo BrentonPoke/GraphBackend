@@ -26,7 +26,7 @@ import static graph.backend.security.SecurityConstants.*;
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	
 	@Autowired
-	private Rollbar rollbar;
+	private RollBarLogger rollbar;
 
 	@PostConstruct
 	public void initialize() {
@@ -62,7 +62,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			try {
 				algorithm = Algorithm.HMAC512(SECRET);
 			} catch (UnsupportedEncodingException e) {
-			    rollbar.error(e);
+			    rollbar.rollbar().error(e);
 			}
 				JWTVerifier verifier = JWT.require(algorithm)
 						.withIssuer(jwt.getIssuer())

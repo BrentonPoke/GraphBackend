@@ -1,7 +1,7 @@
 package graph.backend.Controller;
 
-import com.rollbar.notifier.Rollbar;
 import graph.backend.Beans.QueryObjects.AssignAnimalQuery;
+import graph.backend.RollBarLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,30 +9,26 @@ import org.springframework.web.bind.annotation.*;
 import graph.backend.Beans.Animal;
 import graph.backend.Service.AnimalService;
 
-import javax.annotation.PostConstruct;
 import java.util.Set;
-
-import static com.rollbar.notifier.config.ConfigBuilder.withAccessToken;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/Animal")
 public class AnimalController {
-    Rollbar rollbar;
+    RollBarLogger rollbar;
     
 
     private AnimalService animalService;
 
     @Autowired
-    public AnimalController(AnimalService animalService, Rollbar rollbar){
+    public AnimalController(AnimalService animalService, RollBarLogger rollbar){
         this.rollbar = rollbar;
         this.animalService = animalService;
     }
 
     @GetMapping
     public Animal byAnimalName(@RequestParam(value="name") String name){
-        Animal animal = AnimalService.byAnimal(name);
-        return animal;
+        return AnimalService.byAnimal(name);
     }
     
     @PutMapping("/assignAnimal")

@@ -3,6 +3,7 @@ package graph.backend.Controller;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.rollbar.notifier.Rollbar;
+import graph.backend.RollBarLogger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import graph.backend.Beans.Employee;
@@ -25,12 +26,11 @@ public class UserController {
 	private EmployeeService employeeService;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	final
-	Rollbar rollbar;
+	RollBarLogger rollbar;
 
 	@Autowired
 	public UserController(EmployeeService employeeService,
-			BCryptPasswordEncoder bCryptPasswordEncoder, Rollbar rollbar) {
+			BCryptPasswordEncoder bCryptPasswordEncoder, RollBarLogger rollbar) {
 		this.employeeService = employeeService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 		this.rollbar = rollbar;
@@ -72,11 +72,11 @@ public class UserController {
 				return new ResponseEntity<>(token, HttpStatus.OK);
 
 			} catch (UnsupportedEncodingException e) {
-				rollbar.error(e.getMessage());
+				rollbar.rollbar().error(e.getMessage());
 			}
 
 		}
-		rollbar.error("There was an issue with authentication.");
+		rollbar.rollbar().error("There was an issue with authentication.");
 		return new ResponseEntity<String>("There was an issue with authentication.", HttpStatus.FORBIDDEN);
 	}
 
