@@ -82,8 +82,7 @@ public class BackendApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
   
       while(!employeeRepository.getStatus().equals(1)){
-        rollbar.info("HealthCheck");
-        rollbar.info("Can't connect yet");
+        rollbar.info("HealthCheck: Can't connect yet");
       }
 
 //        //Create all the Animals
@@ -277,27 +276,6 @@ public class BackendApplication implements CommandLineRunner {
         // food animal link
         Set<Food> food = new HashSet<>();
         Set<Animal> empAnimals = new HashSet<>();
-        
-        food.add(beef);
-        lion.setFood(food);
-        cheetah.setFood(food);
-        food.add(rawMeat);
-        bobcat.setFood(food);
-
-        Set<Animal> animals = new HashSet<>();
-        animals.add(lion);
-        animals.add(cheetah);
-        animals.add(manedWolf);
-
-        beef.setAnimals(animals);
-        animals.clear();
-        food.clear();
-        food.add(rawFish);
-        californiaSeaLion.setFood(food);
-        animals.add(californiaSeaLion);
-        rawFish.setAnimals(animals);
-        foodRepository.save(rawFish);
-        animalRepository.save(californiaSeaLion);
   
       EmployeeService employeeService = new EmployeeService(employeeRepository);
       FoodService foodService = new FoodService(foodRepository);
@@ -311,52 +289,37 @@ public class BackendApplication implements CommandLineRunner {
       foodService.assignFoodToManyAnimals(foodQuery.build());
       
       foodQuery.clearAnimals().foodName(rodents.getFoodName()).animal(carpetPython);
+      
+      foodQuery.clearAnimals().animal(baldEagle)
+          .animal(californiaSeaLion)
+          .foodName(rawFish.getFoodName());
+      foodService.assignFoodToManyAnimals(foodQuery.build());
   
-      AssignAnimalQuery query = new AssignAnimalQuery();
-      query.setAnimalName(asianElephant.getAnimalName());
-      query.setUsername(spencer.getUsername());
-      employeeService.assignAnimal(query);
+      AssignAnimalQuery.AssignAnimalQueryBuilder queryBuilder = AssignAnimalQuery.builder();
+      queryBuilder.animal(asianElephant).animal(asianOtter);
+      queryBuilder.username(spencer.getUsername());
+      employeeService.assignManyAnimals(queryBuilder.build());
 
-    query.setUsername(jose.getUsername());
-    query.setAnimalName(baldEagle.getAnimalName());
-    employeeService.assignAnimal(query);
+    queryBuilder.clearAnimals().username(jose.getUsername()).animalName(baldEagle.getAnimalName());
+    employeeService.assignAnimal(queryBuilder.build());
       
-      query.setAnimalName(giantPanda.getAnimalName());
-      query.setUsername(brenton.getUsername());
-      employeeService.assignAnimal(query);
+      queryBuilder.clearAnimals().animal(giantPanda)
+          .animal(redPanda)
+          .username(brenton.getUsername());
+      employeeService.assignManyAnimals(queryBuilder.build());
+      
+      queryBuilder.animalName(westernLowlandGorilla.getAnimalName()).username(semeon.getUsername());
+      employeeService.assignAnimal(queryBuilder.build());
   
-      query.setAnimalName(redPanda.getAnimalName());
-      query.setUsername(brenton.getUsername());
-      employeeService.assignAnimal(query);
-      
-      query.setAnimalName(westernLowlandGorilla.getAnimalName());
-      query.setUsername(semeon.getUsername());
-      employeeService.assignAnimal(query);
+      queryBuilder.animalName(orangutan.getAnimalName()).username(semeon.getUsername());
+      employeeService.assignAnimal(queryBuilder.build());
   
-      query.setAnimalName(orangutan.getAnimalName());
-      query.setUsername(semeon.getUsername());
-      employeeService.assignAnimal(query);
+      queryBuilder.animalName(californiaSeaLion.getAnimalName()).username(florina.getUsername());
+      employeeService.assignAnimal(queryBuilder.build());
   
-      query.setAnimalName(californiaSeaLion.getAnimalName());
-      query.setUsername(florina.getUsername());
-      employeeService.assignAnimal(query);
-  
-      AssignAnimalQuery.AssignAnimalQueryBuilder animalQueryBuilderBuilder = AssignAnimalQuery.builder();
-      animalQueryBuilderBuilder.animal(manedWolf).animal(americanBison);
-      employeeService.assignAnimal(animalQueryBuilderBuilder.build());
       
-      
-      
-
-      AssignLocationQuery query1 = new AssignLocationQuery();
-//      query1.setCoordinates(lAsianOtter);
-//      query1.setLocationName(asForest.getName());
-      CoordinateService coordinateService = new CoordinateService(coordinateRepository);
-      //coordinateService.assignCoordinatesToLocation(query1);
-      
-      query1.setCoordinates(lCheetah);
-      query1.setLocationName(afGrass.getName());
-      coordinateService.assignCoordinatesToLocation(query1);
+      queryBuilder.clearAnimals().username(terrell.getUsername()).animal(manedWolf).animal(americanBison);
+      employeeService.assignManyAnimals(queryBuilder.build());
       
     }
 }
