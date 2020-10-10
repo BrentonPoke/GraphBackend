@@ -13,8 +13,8 @@ public class CoordinateService {
     private CoordinateRepository coordinateRepository;
 
     @Autowired
-    public CoordinateService(CoordinateRepository locationRepository) {
-        this.coordinateRepository = locationRepository;
+    public CoordinateService(CoordinateRepository coordinateRepository) {
+        this.coordinateRepository = coordinateRepository;
     }
     
     public void assignCoordinatesToLocation(AssignLocationQuery query){

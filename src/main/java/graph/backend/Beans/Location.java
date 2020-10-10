@@ -16,17 +16,9 @@ public class Location {
   @GeneratedValue
   private Long id;
   
-  
   private String name;
   
-  @Relationship(type = "WITHIN", direction = Relationship.INCOMING)
-  Coordinates coordinates;
-  
-  public Location(String name, Coordinates coordinates) {
-    this.name = name;
-    this.coordinates = coordinates;
-  }
-  public Location(String name){
+  public Location(String name) {
     this.name = name;
   }
 }
