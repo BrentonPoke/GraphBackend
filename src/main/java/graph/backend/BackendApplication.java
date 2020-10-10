@@ -9,14 +9,13 @@ import graph.backend.Beans.Coordinates;
 import graph.backend.Beans.Location;
 import graph.backend.Beans.QueryObjects.AssignAnimalQuery;
 import graph.backend.Beans.QueryObjects.AssignFoodQuery;
-import graph.backend.Beans.QueryObjects.AssignLocationQuery;
 import graph.backend.Repository.AnimalRepository;
 import graph.backend.Repository.CoordinateRepository;
 import graph.backend.Repository.EmployeeRepository;
 import graph.backend.Repository.EventsRepository;
 import graph.backend.Repository.FoodRepository;
 import graph.backend.Repository.LocationRepository;
-import graph.backend.Service.CoordinateService;
+import graph.backend.Service.AnimalService;
 import graph.backend.Service.EmployeeService;
 import graph.backend.Service.FoodService;
 import java.time.LocalDateTime;
@@ -277,10 +276,9 @@ public class BackendApplication implements CommandLineRunner {
         Set<Food> food = new HashSet<>();
         Set<Animal> empAnimals = new HashSet<>();
   
-      EmployeeService employeeService = new EmployeeService(employeeRepository);
+      AnimalService animalService = new AnimalService(animalRepository);
       FoodService foodService = new FoodService(foodRepository);
       
-      employeeService.saveEmployee(noop);
       AssignFoodQuery.AssignFoodQueryBuilder foodQuery = AssignFoodQuery.builder();
       empAnimals.add(giantPanda);
       empAnimals.add(redPanda);
@@ -298,28 +296,28 @@ public class BackendApplication implements CommandLineRunner {
       AssignAnimalQuery.AssignAnimalQueryBuilder queryBuilder = AssignAnimalQuery.builder();
       queryBuilder.animal(asianElephant).animal(asianOtter);
       queryBuilder.username(spencer.getUsername());
-      employeeService.assignManyAnimals(queryBuilder.build());
+      animalService.assignManyAnimals(queryBuilder.build());
 
     queryBuilder.clearAnimals().username(jose.getUsername()).animalName(baldEagle.getAnimalName());
-    employeeService.assignAnimal(queryBuilder.build());
+    animalService.assignAnimal(queryBuilder.build());
       
       queryBuilder.clearAnimals().animal(giantPanda)
           .animal(redPanda)
           .username(brenton.getUsername());
-      employeeService.assignManyAnimals(queryBuilder.build());
+      animalService.assignManyAnimals(queryBuilder.build());
       
       queryBuilder.animalName(westernLowlandGorilla.getAnimalName()).username(semeon.getUsername());
-      employeeService.assignAnimal(queryBuilder.build());
+      animalService.assignAnimal(queryBuilder.build());
   
       queryBuilder.animalName(orangutan.getAnimalName()).username(semeon.getUsername());
-      employeeService.assignAnimal(queryBuilder.build());
+      animalService.assignAnimal(queryBuilder.build());
   
       queryBuilder.animalName(californiaSeaLion.getAnimalName()).username(florina.getUsername());
-      employeeService.assignAnimal(queryBuilder.build());
+      animalService.assignAnimal(queryBuilder.build());
   
       
       queryBuilder.clearAnimals().username(terrell.getUsername()).animal(manedWolf).animal(americanBison);
-      employeeService.assignManyAnimals(queryBuilder.build());
+      animalService.assignManyAnimals(queryBuilder.build());
       
     }
 }

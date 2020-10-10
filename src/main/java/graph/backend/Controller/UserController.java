@@ -55,12 +55,6 @@ public class UserController {
 		Employee employee = employeeService.byUsername(id.getUsername());
 		return new ResponseEntity<>(employee.toString(),HttpStatus.OK);
 	}
-	
-	@PutMapping("/assignAnimal")
-	public @ResponseBody ResponseEntity<String> assignAnimal(@RequestBody AssignAnimalQuery query){
-		employeeService.assignAnimal(query);
-		return new ResponseEntity<>(query.toString(),HttpStatus.ACCEPTED);
-	}
 
 	@PostMapping("/signin")
 	public @ResponseBody ResponseEntity<String> signIn(@RequestBody Employee user) {
