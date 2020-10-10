@@ -13,9 +13,9 @@ import lombok.Singular;
 @Setter
 @Builder
 @NoArgsConstructor
-public class AssignAnimalQuery {
-String username;
-String animalName;
+public class AssignFoodQuery {
+  String foodName;
+  String animalName;
   @Singular
   Set<Animal> animals;
 }

@@ -8,6 +8,7 @@ import graph.backend.Beans.Food;
 import graph.backend.Beans.Coordinates;
 import graph.backend.Beans.Location;
 import graph.backend.Beans.QueryObjects.AssignAnimalQuery;
+import graph.backend.Beans.QueryObjects.AssignFoodQuery;
 import graph.backend.Beans.QueryObjects.AssignLocationQuery;
 import graph.backend.Repository.AnimalRepository;
 import graph.backend.Repository.CoordinateRepository;
@@ -143,7 +144,7 @@ public class BackendApplication implements CommandLineRunner {
         Location asForest = new Location("Asian Forest");
         Location reptiles = new Location("Holden Museum of Living Reptiles");
         Location arctic= new Location("Arctic Ring of Life");
-        Location afForest = new Location("African Grasslands");
+        Location afGrass = new Location("African Grasslands");
 
 
         // Create all the Locations
@@ -155,9 +156,9 @@ public class BackendApplication implements CommandLineRunner {
         Coordinates lBobcat = new Coordinates(42.476424, -83.160794,amGrass);
         Coordinates lCarpetPython = new Coordinates(42.476692, -83.154338,reptiles);
         Coordinates lCaliforniaSeaLion = new Coordinates(42.477218, -83.160893,arctic);
-        Coordinates lCheetah = new Coordinates(42.479203, -83.159993,amGrass);
+        Coordinates lCheetah = new Coordinates(42.479203, -83.159993, afGrass);
         Coordinates lGiantPanda = new Coordinates(42.477974, -83.155937,asForest);
-        Coordinates lLion = new Coordinates(42.479140, -83.159706,afForest);
+        Coordinates lLion = new Coordinates(42.479140, -83.159706, afGrass);
         Coordinates lManedWolf = new Coordinates(42.475287, -83.161718, amGrass);
         Coordinates lOrangutan = new Coordinates(42.478506, -83.156203,asForest);
         Coordinates lRedPanda = new Coordinates(42.478289, -83.156602,asForest);
@@ -204,7 +205,7 @@ public class BackendApplication implements CommandLineRunner {
       locationRepository.save(amGrass);
       locationRepository.save(asForest);
       locationRepository.save(arctic);
-      locationRepository.save(afForest);
+      locationRepository.save(afGrass);
       locationRepository.save(reptiles);
   
       coordinateRepository.save(lAmericanAlligator);
@@ -275,6 +276,7 @@ public class BackendApplication implements CommandLineRunner {
         //Create links between everything
         // food animal link
         Set<Food> food = new HashSet<>();
+        Set<Animal> empAnimals = new HashSet<>();
         
         food.add(beef);
         lion.setFood(food);
@@ -297,44 +299,27 @@ public class BackendApplication implements CommandLineRunner {
         foodRepository.save(rawFish);
         animalRepository.save(californiaSeaLion);
   
-      Set<Employee> employees = new HashSet<>();
-      HashSet<Animal> noopAnimals = new HashSet<>();
-      HashSet<Food> foods = new HashSet<>();
-      foods.add(rawMeat);
-      americanAlligator.setFood(foods);
-      carpetPython.setFood(foods);
-      baldEagle.setFood(foods);
-      noopAnimals.add(americanAlligator);
-      noopAnimals.add(carpetPython);
-      
-      noop.setAnimals(noopAnimals);
-  
-  
       EmployeeService employeeService = new EmployeeService(employeeRepository);
       FoodService foodService = new FoodService(foodRepository);
       
       employeeService.saveEmployee(noop);
-  
-  
-//      noopAnimals.clear();
-//      noopAnimals.add(asianElephant);
-//      noopAnimals.add(asianOtter);
-//      noopAnimals.add(tiger);
-//      spencer.setAnimals(noopAnimals);
-//      rawMeat.setAnimals(noopAnimals);
-//      foodService.saveFood(rawMeat);
-//      employeeService.saveEmployee(spencer);
+      AssignFoodQuery.AssignFoodQueryBuilder foodQuery = AssignFoodQuery.builder();
+      empAnimals.add(giantPanda);
+      empAnimals.add(redPanda);
+      foodQuery.animals(empAnimals)
+          .foodName(bamboo.getFoodName());
+      foodService.assignFoodToManyAnimals(foodQuery.build());
+      
+      foodQuery.clearAnimals().foodName(rodents.getFoodName()).animal(carpetPython);
   
       AssignAnimalQuery query = new AssignAnimalQuery();
       query.setAnimalName(asianElephant.getAnimalName());
       query.setUsername(spencer.getUsername());
       employeeService.assignAnimal(query);
-  
-      query.setAnimalName(asianOtter.getAnimalName());
-      employeeService.assignAnimal(query);
-  
-      query.setAnimalName(tiger.getAnimalName());
-      employeeService.assignAnimal(query);
+
+    query.setUsername(jose.getUsername());
+    query.setAnimalName(baldEagle.getAnimalName());
+    employeeService.assignAnimal(query);
       
       query.setAnimalName(giantPanda.getAnimalName());
       query.setUsername(brenton.getUsername());
@@ -355,41 +340,23 @@ public class BackendApplication implements CommandLineRunner {
       query.setAnimalName(californiaSeaLion.getAnimalName());
       query.setUsername(florina.getUsername());
       employeeService.assignAnimal(query);
+  
+      AssignAnimalQuery.AssignAnimalQueryBuilder animalQueryBuilderBuilder = AssignAnimalQuery.builder();
+      animalQueryBuilderBuilder.animal(manedWolf).animal(americanBison);
+      employeeService.assignAnimal(animalQueryBuilderBuilder.build());
+      
+      
+      
 
       AssignLocationQuery query1 = new AssignLocationQuery();
-      query1.setCoordinates(lAsianOtter);
-      query1.setLocationName(asForest.getName());
+//      query1.setCoordinates(lAsianOtter);
+//      query1.setLocationName(asForest.getName());
       CoordinateService coordinateService = new CoordinateService(coordinateRepository);
-      coordinateService.assignCoordinatesToLocation(query1);
+      //coordinateService.assignCoordinatesToLocation(query1);
       
       query1.setCoordinates(lCheetah);
-      query1.setLocationName(afForest.getName());
+      query1.setLocationName(afGrass.getName());
       coordinateService.assignCoordinatesToLocation(query1);
       
-
-        // Animal to Employee
-        Set<Animal> animalsToEmployee = new HashSet<>();
-        food.clear();
-        food.add(bamboo);
-        food.add(rawFish);
-        redPanda.setFood(food);
-        giantPanda.setFood(food);
-        food.clear();
-        food.add(rawMeat);
-        bobcat.setFood(food);
-        baldEagle.setFood(food);
-        animalsToEmployee.add(baldEagle);
-        animalsToEmployee.add(bobcat);
-
-      jose.setAnimals(animalsToEmployee);
-      terrell.setAnimals(animalsToEmployee);
-        employees.clear();
-        employees.add(terrell);
-        employees.add(jose);
-        baldEagle.setEmployees(employees);
-        baldEagle.setEmployees(employees);
-        
-        employeeRepository.save(jose);
-        employeeRepository.save(terrell);
     }
 }

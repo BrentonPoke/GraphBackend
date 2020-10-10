@@ -22,6 +22,14 @@ public class EmployeeService {
     public void assignAnimal(AssignAnimalQuery query){
                 employeeRepository.assignAnimalToEmployee(query.getAnimalName(),query.getUsername());
     }
+    
+    public void assignManyAnimals(AssignAnimalQuery query){
+        query.getAnimals().stream()
+            .forEach(
+                animal -> {
+                    this.employeeRepository.assignAnimalToEmployee(animal.getAnimalName(), query.getUsername());
+                });
+    }
 
     public Employee getByID(Long id){
         return employeeRepository.findEmployeeByEmployeeId(id);
