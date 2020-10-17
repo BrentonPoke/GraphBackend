@@ -1,6 +1,7 @@
 package graph.backend.Controller;
 
 import graph.backend.Beans.QueryObjects.AssignAnimalQuery;
+import graph.backend.Beans.QueryObjects.ReassignAnimalQuery;
 import graph.backend.RollBarLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,13 @@ public class AnimalController {
     public @ResponseBody
     ResponseEntity<String> assignAnimal(@RequestBody AssignAnimalQuery query){
         animalService.assignAnimal(query);
+        return new ResponseEntity<>(query.toString(), HttpStatus.ACCEPTED);
+    }
+    
+    @PutMapping("/reassignAnimal")
+    public @ResponseBody
+    ResponseEntity<String> assignAnimal(@RequestBody ReassignAnimalQuery query){
+        animalService.reassignAnimal(query);
         return new ResponseEntity<>(query.toString(), HttpStatus.ACCEPTED);
     }
     

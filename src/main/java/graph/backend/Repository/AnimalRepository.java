@@ -16,4 +16,6 @@ public interface AnimalRepository extends Neo4jRepository<Animal,Long> {
     Set<Animal> findAll();
     @Query("MATCH (animal:Animal {animalName:{animal}}), (emp:Employee {username:{employee}}) CREATE (emp)-[:FEEDS]->(animal)")
     void assignAnimalToEmployee(@Param("animal") String animal, @Param("employee") String employee);
+    @Query("MATCH (animal:Animal {animalName:{animal}})-[r:FEEDS]-(emp:Employee {username:{employee}}) DELETE r")
+    void removeAnimalFromEmployee(@Param("animal") String animal, @Param("employee") String employee);
 }

@@ -2,6 +2,7 @@ package graph.backend.Service;
 
 import graph.backend.Beans.Animal;
 import graph.backend.Beans.QueryObjects.AssignAnimalQuery;
+import graph.backend.Beans.QueryObjects.ReassignAnimalQuery;
 import graph.backend.Repository.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +23,19 @@ public class AnimalService {
         return animalRepository.findAnimalByAnimalName(name);
     }
     public void assignAnimal(AssignAnimalQuery query){
-        animalRepository.assignAnimalToEmployee(query.getAnimalName(),query.getUsername());
+        animalRepository.assignAnimalToEmployee(query.getAnimalName(),query.getEmpUsername());
+    }
+    
+    public void reassignAnimal(ReassignAnimalQuery query){
+        assignAnimal(query);
+        animalRepository.removeAnimalFromEmployee(query.getAnimalName(),query.getOldEmpUsername());
     }
     
     public void assignManyAnimals(AssignAnimalQuery query){
         query.getAnimals().stream()
             .forEach(
                 animal -> {
-                    this.animalRepository.assignAnimalToEmployee(animal.getAnimalName(), query.getUsername());
+                    this.animalRepository.assignAnimalToEmployee(animal.getAnimalName(), query.getEmpUsername());
                 });
     }
 

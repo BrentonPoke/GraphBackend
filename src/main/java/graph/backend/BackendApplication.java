@@ -291,27 +291,26 @@ public class BackendApplication implements CommandLineRunner {
   
       AssignAnimalQuery.AssignAnimalQueryBuilder queryBuilder = AssignAnimalQuery.builder();
       queryBuilder.animal(asianElephant).animal(asianOtter);
-      queryBuilder.username(spencer.getUsername());
+      queryBuilder.empUsername(spencer.getUsername());
       animalService.assignManyAnimals(queryBuilder.build());
 
-    queryBuilder.clearAnimals().username(jose.getUsername()).animalName(baldEagle.getAnimalName());
+    queryBuilder.clearAnimals().empUsername(jose.getUsername()).animalName(baldEagle.getAnimalName());
     animalService.assignAnimal(queryBuilder.build());
       
       queryBuilder.clearAnimals().animal(giantPanda)
-          .animal(redPanda)
-          .username(brenton.getUsername());
+          .animal(redPanda).empUsername(brenton.getUsername());
       animalService.assignManyAnimals(queryBuilder.build());
       
-      queryBuilder.animalName(westernLowlandGorilla.getAnimalName()).username(semeon.getUsername());
+      queryBuilder.animalName(westernLowlandGorilla.getAnimalName()).empUsername(semeon.getUsername());
       animalService.assignAnimal(queryBuilder.build());
   
-      queryBuilder.animalName(orangutan.getAnimalName()).username(semeon.getUsername());
+      queryBuilder.animalName(orangutan.getAnimalName()).empUsername(semeon.getUsername());
       animalService.assignAnimal(queryBuilder.build());
   
-      queryBuilder.animalName(californiaSeaLion.getAnimalName()).username(florina.getUsername());
+      queryBuilder.animalName(californiaSeaLion.getAnimalName()).empUsername(florina.getUsername());
       animalService.assignAnimal(queryBuilder.build());
       
-      queryBuilder.clearAnimals().username(terrell.getUsername()).animal(manedWolf).animal(americanBison);
+      queryBuilder.clearAnimals().empUsername(terrell.getUsername()).animal(manedWolf).animal(americanBison);
       animalService.assignManyAnimals(queryBuilder.build());
       
     }
