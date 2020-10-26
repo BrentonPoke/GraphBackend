@@ -35,7 +35,7 @@ public class AnimalService {
         query.getAnimals().stream()
             .forEach(
                 animal -> {
-                    this.animalRepository.assignAnimalToEmployee(animal.getAnimalName(), query.getEmpUsername());
+                    animalRepository.assignAnimalToEmployee(animal.getAnimalName(), query.getEmpUsername());
                 });
     }
 

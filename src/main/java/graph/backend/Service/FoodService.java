@@ -10,11 +10,11 @@ import graph.backend.Beans.Food;
 @Service
 public class FoodService {
 
-  private FoodRepository foodRepository;
+  private static FoodRepository foodRepository;
 
   @Autowired
   public FoodService(FoodRepository foodRepository) {
-    this.foodRepository = foodRepository;
+    FoodService.foodRepository = foodRepository;
   }
 
   public Iterable<Food> listofFood() {
@@ -22,7 +22,7 @@ public class FoodService {
   }
 
   public void assignFoodToAnimal(AssignFoodQuery query) {
-    this.foodRepository.assignFoodToAnimal(query.getAnimalName(), query.getFoodName());
+    foodRepository.assignFoodToAnimal(query.getAnimalName(), query.getFoodName());
   }
 
   public void assignFoodToManyAnimals(AssignFoodQuery query) {
@@ -30,7 +30,7 @@ public class FoodService {
     query.getAnimals().stream()
         .forEach(
             animal -> {
-              this.foodRepository.assignFoodToAnimal(animal.getAnimalName(), query.getFoodName());
+              foodRepository.assignFoodToAnimal(animal.getAnimalName(), query.getFoodName());
             });
   }
 
