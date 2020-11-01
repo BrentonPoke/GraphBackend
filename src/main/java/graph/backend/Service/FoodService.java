@@ -1,13 +1,14 @@
 package graph.backend.Service;
 
-import graph.backend.Beans.Animal;
 import graph.backend.Beans.QueryObjects.AssignFoodQuery;
 import graph.backend.Repository.FoodRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import graph.backend.Beans.Food;
 
 @Service
+@Slf4j
 public class FoodService {
 
   private static FoodRepository foodRepository;

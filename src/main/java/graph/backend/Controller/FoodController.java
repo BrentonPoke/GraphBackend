@@ -2,6 +2,9 @@ package graph.backend.Controller;
 
 
 import graph.backend.Beans.QueryObjects.AssignFoodQuery;
+import java.sql.SQLOutput;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import graph.backend.Service.FoodService;
 @CrossOrigin
 @RestController
 @RequestMapping("/Food")
+@Slf4j
 public class FoodController {
 
     private FoodService foodService;
@@ -26,13 +30,13 @@ public class FoodController {
     }
     
     @PutMapping("/assignFood")
-    public @ResponseBody ResponseEntity<String> assignFood(AssignFoodQuery query){
+    public @ResponseBody ResponseEntity<String> assignFood(@RequestBody AssignFoodQuery query){
         this.foodService.assignFoodToAnimal(query);
         return new ResponseEntity<>(query.toString(), HttpStatus.ACCEPTED);
     }
     
     @PutMapping("/assignFoods")
-    public @ResponseBody ResponseEntity<String> assignFoods(AssignFoodQuery query){
+    public @ResponseBody ResponseEntity<String> assignFoods(@RequestBody AssignFoodQuery query){
         this.foodService.assignFoodToManyAnimals(query);
         return new ResponseEntity<>(query.toString(), HttpStatus.ACCEPTED);
     }

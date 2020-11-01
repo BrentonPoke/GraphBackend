@@ -31,6 +31,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
 				.antMatchers(HttpMethod.POST,SIGN_IN_URL).permitAll()
 				.antMatchers(HttpMethod.PUT,ASSIGN_ANIMAL_URL).permitAll()
+				.antMatchers(HttpMethod.PUT,ASSIGN_FOOD).permitAll()
+				.antMatchers(HttpMethod.PUT,ASSIGN_FOODS).permitAll()
 				.antMatchers(HttpMethod.GET,EVENTS).permitAll()
 				.antMatchers(HttpMethod.GET,ANIMALS).permitAll()
 				.antMatchers(HttpMethod.GET,LOCATION).permitAll()

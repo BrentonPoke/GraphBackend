@@ -12,6 +12,4 @@ public interface EmployeeRepository extends Neo4jRepository<Employee, Long> {
     Employee findEmployeeByUsername(@Param("username") String username);
     @Query("MATCH (n:Employee) where n.id = {id} return n")
     Employee findEmployeeByEmployeeId(@Param("id") Long id);
-    @Query("RETURN 1")
-    Integer getStatus();
 }
