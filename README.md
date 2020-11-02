@@ -7,7 +7,7 @@ backend RESTful webservice.
 ./build.sh
 ```
 This will pull down the docker image for Neo4j and then build the REST service. If you're on windows,
-you can download sh through scoop or something, or try WSL. I haven't tried this on Windows Subsystem for Linux.
+you can use this through Git BASH.
 ### Podman Users
 If you have podman aliased to docker,
 it will use podman normally. After that, it will detect whether or not podman-compose is available
