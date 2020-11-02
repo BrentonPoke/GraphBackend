@@ -269,7 +269,6 @@ public class BackendApplication implements CommandLineRunner {
 
         //Create links between everything
         // food animal link
-        Set<Food> food = new HashSet<>();
         Set<Animal> empAnimals = new HashSet<>();
   
       AnimalService animalService = new AnimalService(animalRepository);

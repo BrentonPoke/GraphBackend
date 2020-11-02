@@ -3,10 +3,13 @@ package graph.backend.Beans;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import graph.backend.RollBarLogger;
 import java.util.HashSet;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +21,7 @@ import org.neo4j.ogm.annotation.Relationship;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @EqualsAndHashCode
 @NodeEntity
 @JsonIdentityInfo(
@@ -50,11 +54,6 @@ public class Animal {
     @Relationship(type = "LOCATED_AT")
     private Coordinates site;
 
-
-  public Animal(){
-
-    }
-
     public Animal(String animalName, String scientificName, String funFact, String summary, int numOfAnimal, int tracking, String notes) {
         this.animalName = animalName;
         this.scientificName = scientificName;
@@ -78,8 +77,8 @@ public class Animal {
 
     @Override
     public String toString() {
-        JSONObject json = new JSONObject();
-        try {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode json = mapper.createObjectNode();
             json.put("animalName",this.animalName)
                     .put("scientificName",scientificName)
                     .put("funFact",funFact)
@@ -87,9 +86,7 @@ public class Animal {
                     .put("numOfAnimal",numOfAnimal)
                     .put("tracking",tracking)
                     .put("notes",notes);
-        } catch (JSONException e) {
-            new RollBarLogger().rollbar().error(e);
-        }
+        
         return json.toString();
     }
 }

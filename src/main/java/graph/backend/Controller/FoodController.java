@@ -15,7 +15,6 @@ import graph.backend.Service.FoodService;
 @CrossOrigin
 @RestController
 @RequestMapping("/Food")
-@Slf4j
 public class FoodController {
 
     private FoodService foodService;

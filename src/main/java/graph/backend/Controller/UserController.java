@@ -26,7 +26,7 @@ public class UserController {
 	private EmployeeService employeeService;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	RollBarLogger rollbar;
+	private RollBarLogger rollbar;
 
 	@Autowired
 	public UserController(EmployeeService employeeService,
@@ -43,11 +43,11 @@ public class UserController {
 	}
 
 	@PostMapping("/sign-up")
-	public void signUp(@RequestBody Employee user) {
+	public @ResponseBody ResponseEntity<String> signUp(@RequestBody Employee user) {
 		System.out.println(user);
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		employeeService.saveEmployee(user);
-
+	return new ResponseEntity<>(user.toString(),HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/info")

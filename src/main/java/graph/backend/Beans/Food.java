@@ -1,6 +1,8 @@
 package graph.backend.Beans;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.rollbar.notifier.Rollbar;
 import graph.backend.RollBarLogger;
 import java.util.HashSet;
@@ -51,27 +53,13 @@ public class Food {
     
     @Override
     public String toString() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("foodName",foodName)
+      ObjectMapper mapper = new ObjectMapper();
+      ObjectNode json = mapper.createObjectNode();
+               json.put("foodName",foodName)
                     .put("amount",amount)
                     .put("nextDelivery",nextDelivery)
-                    .put("notes",notes);
-            JSONArray animalArray = new JSONArray();
-            this.animals.forEach(animal -> {
-                JSONObject animalFood = new JSONObject();
-                try {
-                    animalFood.put("animalId",animal.getAnimalId());
-                    animalFood.put("animalName",animal.getAnimalName());
-                } catch (JSONException e) {
-                  new RollBarLogger().rollbar().error(e,"Failed to create animal JSON array in "+ this.getClass().getSimpleName());
-                }
-                animalArray.put(animalFood);
-            });
-            json.put("Animal",animalArray);
-        } catch (JSONException e) {
-          new RollBarLogger().rollbar().error(e);
-        }
+                    .put("notes",notes)
+                    .putPOJO("animals",animals);
         return json.toString();
     }
 

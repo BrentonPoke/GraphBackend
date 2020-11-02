@@ -21,7 +21,7 @@ public class GlobalExceptionHandlerController extends ResponseEntityExceptionHan
         this.rollbar = rollbar;
     }
     @ExceptionHandler(value
-        = { IllegalArgumentException.class, IllegalStateException.class})
+        = { IllegalArgumentException.class, IllegalStateException.class, NullPointerException.class})
     protected ResponseEntity<Object> handleConflict(
         RuntimeException ex, WebRequest request) {
       rollbar.rollbar().error(ex);

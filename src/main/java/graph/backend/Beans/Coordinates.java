@@ -53,7 +53,8 @@ public class Coordinates {
         json.put("id",id)
                 .put("latitude",latitude)
                 .put("longitude",longitude)
-                .put("location",location.getName());
+                .put("location",location.getName())
+                .putPOJO("animal",animal);
         return json.toString();
     }
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import graph.backend.Beans.Food;
 
 @Service
-@Slf4j
 public class FoodService {
 
   private static FoodRepository foodRepository;

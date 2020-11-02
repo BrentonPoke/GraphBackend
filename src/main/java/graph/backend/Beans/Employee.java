@@ -3,7 +3,10 @@ package graph.backend.Beans;
 import static com.rollbar.notifier.config.ConfigBuilder.withAccessToken;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.rollbar.notifier.Rollbar;
+import graph.backend.RollBarLogger;
 import java.util.HashSet;
 import lombok.Getter;
 import lombok.Setter;
@@ -70,21 +73,17 @@ public class Employee {
 
     }
     
-
     @Override
     public String toString() {
-        JSONObject json = new JSONObject();
-        try {
+      ObjectMapper mapper = new ObjectMapper();
+      ObjectNode json = mapper.createObjectNode();
+        
             json.put("firstName",firstName)
-                    .put("lastName",lastName)
                 .put("employeeId",employeeId)
-                    .put("username",username)
-                    .put("role",role);
-        } catch (JSONException e) {
-            Rollbar rollbar= Rollbar.init(withAccessToken("ace12982e3e546f39847979667d97939").environment("production")
-                .codeVersion("1.2.1").build());
-            rollbar.error(e.getMessage());
-        }
+                .put("username",username)
+                .put("lastName",lastName)
+                .put("role",role);
+       
         return json.toString();
 
     }
