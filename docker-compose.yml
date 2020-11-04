@@ -4,7 +4,7 @@ services:
     build: .
     depends_on:
       - "neo4j"
-    image: "neo4jbackend:latest"
+    image: "brentonpoke/graphbackend:first"
     expose:
       - "8080"
     ports:
