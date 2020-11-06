@@ -1,6 +1,6 @@
 mvn -f pom.xml clean -DskipTests package
 if [ -x "$(command -v podman)" ]; then
-  podman build -t neo4jbackend -f Dockerfile
+  podman build -t latest -f Dockerfile
   else docker build -t latest -f Dockerfile
 fi
 
