@@ -1,7 +1,7 @@
 mvn -f pom.xml clean -DskipTests package
 if [ -x "$(command -v podman)" ]; then
-  podman build -f Dockerfile
-  else docker build -f Dockerfile
+  podman build -t graphbackend -f Dockerfile
+  else docker build -t graphbackend -f Dockerfile
 fi
 
 if [ -x "$(command -v podman-compose)" ]; then
