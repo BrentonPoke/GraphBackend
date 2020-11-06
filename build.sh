@@ -1,7 +1,7 @@
 mvn -f pom.xml clean -DskipTests package
 if [ -x "$(command -v podman)" ]; then
-  podman build -t latest -f Dockerfile
-  else docker build -t latest -f Dockerfile
+  podman build -f Dockerfile
+  else docker build -f Dockerfile
 fi
 
 if [ -x "$(command -v podman-compose)" ]; then
