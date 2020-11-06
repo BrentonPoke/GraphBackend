@@ -1,7 +1,12 @@
 package graph.backend.Controller;
 
 
+import com.sun.org.apache.xerces.internal.util.HTTPInputSource;
+import graph.backend.Beans.Employee;
+import graph.backend.Beans.QueryObjects.AssignEventQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import graph.backend.Beans.Events;
 import graph.backend.Service.EventsService;
@@ -20,6 +25,12 @@ public class EventsController {
     @RequestMapping("/")
     public Iterable<Events> EventList(){
         return eventsService.listOfEvents();
+    }
+    
+    @PutMapping("assignEvent")
+    public HttpStatus assignEventToEmployee(@RequestBody AssignEventQuery query) {
+        eventsService.assignEventToEmployee(query);
+        return HttpStatus.CREATED;
     }
 
     @PostMapping("/save")

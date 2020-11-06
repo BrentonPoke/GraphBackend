@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,14 +25,14 @@ public class Events {
     @GeneratedValue
     private Long eventId;
 
-    private String what;
+    private String name;
 
     private String where;
 
     private LocalDateTime start, end;
     
-    public Events(String what, String where, LocalDateTime start, LocalDateTime end) {
-        this.what = what;
+    public Events(String name, String where, LocalDateTime start, LocalDateTime end) {
+        this.name = name;
         this.where = where;
         this.start = start;
         this.end = end;
@@ -39,9 +40,8 @@ public class Events {
     
     @Override
     public String toString() {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode json = mapper.createObjectNode();
-        json.put("what",what).put("where",where)
+        ObjectNode json = new ObjectMapper().createObjectNode();
+        json.put("name",name).put("where",where)
             .put("start",start.format(DateTimeFormatter.ISO_DATE_TIME))
         .put("end",end.format(DateTimeFormatter.ISO_DATE_TIME));
         return json.toString();
