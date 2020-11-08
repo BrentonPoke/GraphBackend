@@ -8,6 +8,6 @@ import graph.backend.Beans.Events;
 
 @Repository
 public interface EventsRepository extends Neo4jRepository<Events, Long> {
-	@Query("MATCH (event:Events {name:{eventName}}), (emp:Employee {username:{empname}}) CREATE (emp)-[:PRESENTS]->(event)")
+	@Query("MATCH (event:Events {name:$eventName}), (emp:Employee {username:$empname}) CREATE (emp)-[:PRESENTS]->(event)")
 	void assignEventToEmployee(@Param("eventName") String event, @Param("empname") String emp);
 }

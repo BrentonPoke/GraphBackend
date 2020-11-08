@@ -12,10 +12,10 @@ import java.util.Set;
 public interface AnimalRepository extends Neo4jRepository<Animal,Long> {
 
     Animal findAnimalByAnimalName(String name);
-    @Query("MATCH (n:`Animal`) return n")
+    @Query("MATCH (n:Animal) return n")
     Set<Animal> findAll();
-    @Query("MATCH (animal:Animal {animalName:{animal}}), (emp:Employee {username:{employee}}) CREATE (emp)-[:FEEDS]->(animal)")
+    @Query("MATCH (animal:Animal {animalName:$animal}), (emp:Employee {username:$employee}) CREATE (emp)-[:FEEDS]->(animal)")
     void assignAnimalToEmployee(@Param("animal") String animal, @Param("employee") String employee);
-    @Query("MATCH (animal:Animal {animalName:{animal}})-[r:FEEDS]-(emp:Employee {username:{employee}}) DELETE r")
+    @Query("MATCH (animal:Animal {animalName:$animal})-[r:FEEDS]-(emp:Employee {username:$employee}) DELETE r")
     void removeAnimalFromEmployee(@Param("animal") String animal, @Param("employee") String employee);
 }
