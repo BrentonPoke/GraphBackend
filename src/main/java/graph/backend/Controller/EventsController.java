@@ -28,9 +28,9 @@ public class EventsController {
     }
     
     @PutMapping("assignEvent")
-    public HttpStatus assignEventToEmployee(@RequestBody AssignEventQuery query) {
+    public @ResponseBody ResponseEntity<String> assignEventToEmployee(@RequestBody AssignEventQuery query) {
         eventsService.assignEventToEmployee(query);
-        return HttpStatus.CREATED;
+        return new ResponseEntity<>(query.toString(), HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/save")
