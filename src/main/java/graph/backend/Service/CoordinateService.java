@@ -10,20 +10,21 @@ import graph.backend.Beans.Coordinates;
 @Service
 public class CoordinateService {
 
-    private CoordinateRepository coordinateRepository;
+  private CoordinateRepository coordinateRepository;
 
-    @Autowired
-    public CoordinateService(CoordinateRepository coordinateRepository) {
-        this.coordinateRepository = coordinateRepository;
-    }
-    
-    public void assignCoordinatesToLocation(AssignLocationQuery query){
+  @Autowired
+  public CoordinateService(CoordinateRepository coordinateRepository) {
+    this.coordinateRepository = coordinateRepository;
+  }
+
+  public void assignCoordinatesToLocation(AssignLocationQuery query) {
     this.coordinateRepository.assignCoordinatesToLocation(
-        query.getCoordinates().getLatitude(),query.getCoordinates().getLongitude(), query.getLocationName());
-    }
+        query.getCoordinates().getLatitude(),
+        query.getCoordinates().getLongitude(),
+        query.getLocationName());
+  }
 
-    public Iterable<Coordinates> listofCoordinates() {
-        return coordinateRepository.findAll();
-    }
+  public Iterable<Coordinates> listofCoordinates() {
+    return coordinateRepository.findAll();
+  }
 }
-

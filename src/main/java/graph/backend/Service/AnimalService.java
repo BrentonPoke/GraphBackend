@@ -34,9 +34,7 @@ public class AnimalService {
     public void assignManyAnimals(AssignAnimalQuery query){
         query.getAnimals().stream()
             .forEach(
-                animal -> {
-                    animalRepository.assignAnimalToEmployee(animal.getAnimalName(), query.getEmpUsername());
-                });
+                animal -> animalRepository.assignAnimalToEmployee(animal.getAnimalName(), query.getEmpUsername()));
     }
 
     public Set<Animal> allAnimals(){

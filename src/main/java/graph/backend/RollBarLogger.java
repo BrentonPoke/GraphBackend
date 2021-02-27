@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.rollbar.spring.webmvc.RollbarSpringConfigBuilder;
 
@@ -26,6 +27,7 @@ public class RollBarLogger {
    * Register a Rollbar bean to configure App with Rollbar.
    */
   @Bean
+  @Scope("prototype")
   public Rollbar rollbar() {
     return new Rollbar(getRollbarConfigs());
   }

@@ -3,22 +3,18 @@ package graph.backend.Controller;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.rollbar.notifier.Rollbar;
-import graph.backend.RollBarLogger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import graph.backend.Beans.Employee;
-import graph.backend.Beans.QueryObjects.AssignAnimalQuery;
 import graph.backend.Service.EmployeeService;
 import graph.backend.security.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
-
-import static com.rollbar.notifier.config.ConfigBuilder.withAccessToken;
 
 @RestController
 @RequestMapping("/users")
@@ -26,11 +22,11 @@ public class UserController {
 	private EmployeeService employeeService;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	private RollBarLogger rollbar;
+	private final Rollbar rollbar;
 
 	@Autowired
 	public UserController(EmployeeService employeeService,
-			BCryptPasswordEncoder bCryptPasswordEncoder, RollBarLogger rollbar) {
+			BCryptPasswordEncoder bCryptPasswordEncoder, Rollbar rollbar) {
 		this.employeeService = employeeService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 		this.rollbar = rollbar;
@@ -72,12 +68,12 @@ public class UserController {
 				return new ResponseEntity<>(token, HttpStatus.OK);
 
 			} catch (UnsupportedEncodingException e) {
-				rollbar.rollbar().error(e.getMessage());
+				rollbar.error(e.getMessage());
 			}
 
 		}
-		rollbar.rollbar().error("There was an issue with authentication.");
-		return new ResponseEntity<String>("There was an issue with authentication.", HttpStatus.FORBIDDEN);
+		rollbar.error("There was an issue with authentication.");
+		return new ResponseEntity<>("There was an issue with authentication.", HttpStatus.FORBIDDEN);
 	}
 
 }
